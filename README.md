@@ -7,6 +7,10 @@ An Elixir/Phoenix app to track tasks.
 * Removed "Users" from navigation. A logged in user should only see or edit its own 
 * Separated completed and non completed tasks, and put non completed above as they should be more relevant to users
 
+### Notes:
+
+Duplicate names/emails are not supported, it will throw errors or the app will behave unexpectedly.
+
 ### To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`

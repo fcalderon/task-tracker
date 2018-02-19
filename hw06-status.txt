@@ -14,7 +14,7 @@ https://github.com/fcalderon/task-tracker
 
 3. What's the version number of your github release?
 
-v0.9
+v1.0
 
 4. What's the URL that you deployed to?
 
