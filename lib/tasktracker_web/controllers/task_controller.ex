@@ -3,6 +3,7 @@ defmodule TasktrackerWeb.TaskController do
 
   alias Tasktracker.Tasks
   alias Tasktracker.Tasks.Task
+  alias Tasktracker.Accounts
 
   def index(conn, _params) do
     tasks = Tasks.list_tasks()
@@ -11,7 +12,9 @@ defmodule TasktrackerWeb.TaskController do
 
   def new(conn, _params) do
     changeset = Tasks.change_task(%Task{})
-    render(conn, "new.html", changeset: changeset)
+    users = Accounts.list_users() |> Enum.map(&{&1.name, &1.id})
+
+    render(conn, "new.html", changeset: changeset, users: users)
   end
 
   def create(conn, %{"task" => task_params}) do
@@ -33,7 +36,8 @@ defmodule TasktrackerWeb.TaskController do
   def edit(conn, %{"id" => id}) do
     task = Tasks.get_task!(id)
     changeset = Tasks.change_task(task)
-    render(conn, "edit.html", task: task, changeset: changeset)
+    users = Accounts.list_users() |> Enum.map(&{&1.name, &1.id})
+    render(conn, "edit.html", task: task, changeset: changeset, users: users)
   end
 
   def update(conn, %{"id" => id, "task" => task_params}) do

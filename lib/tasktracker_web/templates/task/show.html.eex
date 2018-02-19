@@ -3,8 +3,15 @@
 <ul>
 
   <li>
+    <strong>Title:</strong>
+    <%= @task.title %>
+    <br>
+
     <strong>Body:</strong>
     <%= @task.body %>
+
+    <strong>Assignee:</strong>
+        <%= @task.user.name%>
   </li>
 
 </ul>
