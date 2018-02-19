@@ -14,7 +14,7 @@ defmodule TasktrackerWeb.TaskController do
     changeset = Tasks.change_task(%Task{})
     users = Accounts.list_users() |> Enum.map(&{&1.name, &1.id})
 
-    render(conn, "new.html", changeset: changeset, users: users)
+    render(conn, "new.html", changeset: changeset, users: users, task: nil)
   end
 
   def create(conn, %{"task" => task_params}) do
