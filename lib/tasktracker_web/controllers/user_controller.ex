@@ -3,6 +3,7 @@ defmodule TasktrackerWeb.UserController do
 
   alias Tasktracker.Accounts
   alias Tasktracker.Accounts.User
+  alias TasktrackerWeb.SessionController
 
   def index(conn, _params) do
     users = Accounts.list_users()
@@ -19,7 +20,7 @@ defmodule TasktrackerWeb.UserController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: user_path(conn, :show, user))
+        |> SessionController.create(%{"email" => user.email})
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
