@@ -1,5 +1,7 @@
 defmodule TasktrackerWeb.Router do
   use TasktrackerWeb, :router
+  resources "/users", UserController
+  resources "/tasks", TaskController
 
   pipeline :browser do
     plug :accepts, ["html"]
