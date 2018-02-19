@@ -6,8 +6,9 @@ defmodule TasktrackerWeb.TaskController do
   alias Tasktracker.Accounts
 
   def index(conn, _params) do
-    tasks = Tasks.list_tasks()
-    render(conn, "index.html", tasks: tasks)
+    tasks = Tasks.list_non_completed_tasks()
+    completed_tasks = Tasks.list_completed_tasks()
+    render(conn, "index.html", tasks: tasks, completed_tasks: completed_tasks)
   end
 
   def new(conn, _params) do

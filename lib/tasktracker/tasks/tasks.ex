@@ -22,6 +22,16 @@ defmodule Tasktracker.Tasks do
     |> Repo.preload(:user)
   end
 
+  def list_completed_tasks do
+    Repo.all(from t in Task, where: t.completed == true)
+    |> Repo.preload(:user)
+  end
+
+  def list_non_completed_tasks do
+    Repo.all(from t in Task, where: t.completed != true)
+    |> Repo.preload(:user)
+  end
+
   @doc """
   Gets a single task.
 

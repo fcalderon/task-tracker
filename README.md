@@ -1,6 +1,13 @@
-# Tasktracker
+# Task Tracker
 
-To start your Phoenix server:
+An Elixir/Phoenix app to track tasks.
+
+### Design decisions
+
+* Removed "Users" from navigation. A logged in user should only see or edit its own 
+* Separated completed and non completed tasks, and put non completed above as they should be more relevant to users
+
+### To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
