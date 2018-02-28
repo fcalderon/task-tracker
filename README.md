@@ -7,6 +7,14 @@ An Elixir/Phoenix app to track tasks.
 * Removed "Users" from navigation. A logged in user should only see or edit its own 
 * Separated completed and non completed tasks, and put non completed above as
   they should be more relevant to users
+  
+* Added "manage" in the nav bar so managers can add their underlings
+* An underling can add underlings below him/her
+* If a manager/underling doesn't have any underlings, the ability to create tasks is disabled
+* Given that a user can have tasks assigned to himself as well as tasks that he assigned, tasks are divided in two 
+sections in the tasks dashboard
+
+ 
 
 ### Notes:
 
