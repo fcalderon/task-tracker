@@ -30,3 +30,7 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+
+## Other resources used for implementing this hw
+
+https://www.dailydrip.com/topics/elixir/drips/nested-resources-in-phoenix.html

@@ -5,7 +5,6 @@ defmodule TasktrackerWeb.UserController do
   alias Tasktracker.Accounts.User
   alias TasktrackerWeb.SessionController
   alias Tasktracker.Managers
-  alias Tasktracker.Managers.Manager
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, "index.html", users: users)
@@ -34,7 +33,7 @@ defmodule TasktrackerWeb.UserController do
     manager = Managers.get_by_underling_id(id)
 
     manager_user = if manager != nil do
-      manager_user = manager.manager
+      manager.manager
     else
       nil
     end

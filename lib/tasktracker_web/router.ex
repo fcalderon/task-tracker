@@ -26,7 +26,9 @@ defmodule TasktrackerWeb.Router do
     get "/", PageController, :index
 
     resources "/users", UserController
-    resources "/tasks", TaskController
+    resources "/tasks", TaskController do
+      resources "/timeblocks", TimeBlockController
+    end
     resources "/manage", ManagerController
 
     post "/session", SessionController, :create

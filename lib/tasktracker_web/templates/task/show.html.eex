@@ -1,20 +1,42 @@
 <h2>Show Task</h2>
-
-<ul>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @task.title %>
-    <br>
-
-    <strong>Body:</strong>
-    <%= @task.body %>
-
-    <strong>Assignee:</strong>
-        <%= @task.user.name%>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: task_path(@conn, :edit, @task) %></span>
 <span><%= link "Back", to: task_path(@conn, :index) %></span>
+<div class="card">
+    <div class="card-header">
+    Task details
+    </div>
+    <div class="card-body">
+        <ul>
+
+          <li>
+            <strong>Title:</strong>
+            <%= @task.title %>
+            <br>
+
+            <strong>Body:</strong>
+            <%= @task.body %>
+
+            <strong>Assignee:</strong>
+                <%= @task.user.name%>
+          </li>
+
+        </ul>
+        <span><%= link "Edit", to: task_path(@conn, :edit, @task), class: "btn btn-primary" %></span>
+    </div>
+</div>
+<div class="card mt-4">
+    <div class="card-header">
+        Time blocks
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Logged time blocks</h5>
+      <p class="card-text">Below is the list of the currently logged time blocks.</p>
+      <%= link "Log more time", to: task_time_block_path(@conn, :new, @task), class: "btn btn-primary" %>
+      <button class="btn btn-info" id="direct-timer-button" data-task-id="<%= @task.id %>">Start direct timer</button>
+    </div>
+    <ul class="list-group list-group-flush">
+        <%= for block <- @task.time_blocks do %>
+            <li class="list-group-item"><%= block.start_time %> - <%= block.end_time %></li>
+        <% end %>
+    </ul>
+</div>
+

@@ -8,10 +8,6 @@ defmodule Tasktracker.Tasks do
 
   alias Tasktracker.Tasks.Task
 
-  alias Tasktracker.Managers.Manager
-
-  alias Tasktracker.Accounts.User
-
   @doc """
   Returns the list of tasks.
 
@@ -68,7 +64,9 @@ defmodule Tasktracker.Tasks do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id) |> Repo.preload(:user)
+  def get_task!(id), do: Repo.get!(Task, id)
+                         |> Repo.preload(:user)
+                         |> Repo.preload(:time_blocks)
 
   @doc """
   Creates a task.

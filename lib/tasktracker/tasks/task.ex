@@ -8,6 +8,7 @@ defmodule Tasktracker.Tasks.Task do
     field :title, :string
     field :body, :string
     belongs_to :user, Tasktracker.Accounts.User
+    has_many :time_blocks, Tasktracker.TimeBlocks.TimeBlock
     field :minutes_worked, :integer, default: 15
     field :completed, :boolean, default: false
 
