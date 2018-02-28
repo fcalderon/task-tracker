@@ -1,5 +1,6 @@
 <h2>Show Task</h2>
 <span><%= link "Back", to: task_path(@conn, :index) %></span>
+
 <div class="card">
     <div class="card-header">
     Task details
@@ -33,9 +34,15 @@
       <%= link "Log more time", to: task_time_block_path(@conn, :new, @task), class: "btn btn-primary" %>
       <button class="btn btn-info" id="direct-timer-button" data-task-id="<%= @task.id %>">Start direct timer</button>
     </div>
-    <ul class="list-group list-group-flush">
+    <ul class="list-group list-group-flush" id="time-block-list" data-task-id="<%= @task.id %>">
         <%= for block <- @task.time_blocks do %>
-            <li class="list-group-item"><%= block.start_time %> - <%= block.end_time %></li>
+            <li class="list-group-item"><%= block.start_time %> -
+            <%= if block.end_time do %>
+               <%= block.start_time %>
+            <% else %>
+               <button class="btn btn-warning open-time-block" data-time-block-id="<%= block.id %>">Stop</button>
+            <% end %>
+            </li>
         <% end %>
     </ul>
 </div>

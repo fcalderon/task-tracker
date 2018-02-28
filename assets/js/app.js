@@ -20,7 +20,52 @@ import "phoenix_html"
 
 // import socket from "./socket"
 $(function() {
-  $('#direct-timer-button').click(function() {
-    console.log($(this).data('task-id'))
+  const timeBlockListSelector = $('#time-block-list');
+  const taskId = timeBlockListSelector.data('task-id');
+
+  $('#direct-timer-button').on('click',function() {
+    const timeblock = {
+      time_block: {
+        start_time: new Date().toISOString()
+      }
+    };
+
+    $.post('/api/tasks/' + taskId + '/timeblocks', timeblock,
+      function(res) {
+         const data = res.data;
+         timeBlockListSelector.prepend(toListItem(data));
+         console.log('Posted open time block', data);
+         console.log('Posted open time block', toListItem(data));
+    }, 'json');
+  });
+
+  timeBlockListSelector.on('click', '.open-time-block', function() {
+    const listItemElementSelector = $(this).parent();
+    const timeBlockId = $(this).data('time-block-id');
+
+    const timeBlock = {
+      time_block: {
+        end_time: new Date().toISOString()
+      }
+    };
+    $.ajax({
+      type: 'PUT',
+      url: '/api/tasks/' + taskId + '/timeblocks/' + timeBlockId,
+      data: timeBlock,
+      success: function(res) {
+        const data = res.data;
+        listItemElementSelector.replaceWith(toListItem(data));
+        console.log('Closed open time block', data);
+      },
+      dataType: 'json'
+    });
+
   });
 });
+
+function toListItem(timeblock) {
+  return '<li class="list-group-item">'
+    + timeblock.start_time + ' - '
+    + (timeblock.end_time ? timeblock.end_time : '<button class="btn btn-warning open-time-block" data-time-block-id="' + timeblock.id + '">Stop</button>')
+    + '</li>';
+}
