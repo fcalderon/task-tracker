@@ -8,6 +8,10 @@ defmodule Tasktracker.TimeBlocks do
 
   alias Tasktracker.TimeBlocks.TimeBlock
 
+  def list_time_blocks() do
+    Repo.all(from t in TimeBlock)
+  end
+
   @doc """
   Returns the list of time_blocks.
 

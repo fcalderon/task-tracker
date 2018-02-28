@@ -1,4 +1,4 @@
-defmodule TasktrackerWeb.TimeBlockView do
+defmodule TasktrackerWeb.TimeBlockApiView do
   use TasktrackerWeb, :view
   alias TasktrackerWeb.TimeBlockView
 
