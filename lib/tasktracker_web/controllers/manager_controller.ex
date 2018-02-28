@@ -27,7 +27,7 @@ defmodule TasktrackerWeb.ManagerController do
           {:ok, manager} ->
             conn
             |> put_flash(:info, "Manager created successfully.")
-            |> redirect(to: manager_path(conn, :show, manager))
+            |> redirect(to: manager_path(conn, :index))
           {:error, %Ecto.Changeset{} = changeset} ->
             render(conn, "new.html", changeset: changeset)
         end

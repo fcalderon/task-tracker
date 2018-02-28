@@ -9,9 +9,13 @@ defmodule TasktrackerWeb.TaskController do
   def index(conn, _params) do
     user_id = get_session(conn, :user_id)
 
+    my_completed_tasks = Tasks.list_completed_tasks_by_assignee(user_id)
+    my_open_tasks = Tasks.list_non_completed_tasks_by_assignee(user_id)
+
     tasks = Tasks.list_non_completed_tasks_by_manager_id(user_id)
     completed_tasks = Tasks.list_completed_tasks_by_manager_id(user_id)
-    render(conn, "index.html", tasks: tasks, completed_tasks: completed_tasks)
+    render(conn, "index.html", tasks: tasks, completed_tasks: completed_tasks, my_open_tasks: my_open_tasks,
+      my_completed_tasks: my_completed_tasks)
   end
 
   def new(conn, _params) do

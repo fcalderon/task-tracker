@@ -1,39 +1,30 @@
 <h2>Task List</h2>
 <span><%= link "New Task", to: task_path(@conn, :new) %></span>
 
-<h3 class="mt-4">Open tasks</h3>
-<div class="list-group">
-<%= for task <- @tasks do %>
-  <div class="list-group-item flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1"><%= task.title %></h5>
-      <div class="d-flex">
-      <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
-              <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
-              <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </div>
-    </div>
-    <p class="mb-1"><%= task.body %></p>
-    <small><%= task.user.name %></small>
-  </div>
-<% end %>
+<div class="card">
+<div class="card-header">My tasks</div>
+<div class="card-body">
+<h3 class="">Open</h3>
+
+<%= render "task-list.html", Map.put(assigns, :tasks , @my_open_tasks) %>
+
+
+<h3 class="mt-4">Completed</h3>
+
+<%= render "task-list.html", Map.put(assigns, :tasks , @my_completed_tasks) %>
+</div>
 </div>
 
-<h3 class="mt-4">Completed tasks</h3>
+<div class="card mt-4">
+<div class="card-header">My underlings' tasks</div>
+<div class="card-body">
+<h3 class="">Open</h3>
 
-<div class="list-group">
-<%= for task <- @completed_tasks do %>
-  <div class="list-group-item flex-column align-items-start">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1"><%= task.title %></h5>
-      <div class="d-flex">
-      <span><%= link "Show", to: task_path(@conn, :show, task), class: "btn btn-default btn-xs" %></span>
-              <span><%= link "Edit", to: task_path(@conn, :edit, task), class: "btn btn-default btn-xs" %></span>
-              <span><%= link "Delete", to: task_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </div>
-    </div>
-    <p class="mb-1"><%= task.body %></p>
-    <small><%= task.user.name %></small>
-  </div>
-<% end %>
+<%= render "task-list.html", Map.put(assigns, :tasks , @tasks) %>
+
+
+<h3 class="mt-4">Completed</h3>
+
+<%= render "task-list.html", Map.put(assigns, :tasks , @completed_tasks) %>
+</div>
 </div>

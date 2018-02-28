@@ -12,8 +12,7 @@
     <tr>
       <td><%= manager.underling.name %></td>
       <td class="text-right">
-        <span><%= link "Show", to: manager_path(@conn, :show, manager), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: manager_path(@conn, :edit, manager), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Profile", to: user_path(@conn, :show, manager.underling), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Delete", to: manager_path(@conn, :delete, manager), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>

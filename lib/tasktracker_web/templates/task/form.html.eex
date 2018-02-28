@@ -19,23 +19,49 @@
         <%= textarea f, :body, class: "form-control" %>
         <%= error_tag f, :body %>
       </div>
-      <div class="form-group">
-        <%= label f, :user_id, class: "control-label" %>
-        <%= select f, :user_id, @users, class: "form-control" %>
-        <%= error_tag f, :user_id %>
-      </div>
+
 
       <%= if @task do %>
-      <div class="form-group">
-        <%= label f, :completed, class: "control-label" %>
-        <%= checkbox f, :completed, class: "form-control" %>
-        <%= error_tag f, :completed %>
-      </div>
+          <div class="form-group">
+            <%= label f, :completed, class: "control-label" %>
+            <%= checkbox f, :completed, class: "form-control" %>
+            <%= error_tag f, :completed %>
+          </div>
+          <%= if @task.user.id == @current_user.id do %>
+          <p>This task has been assigned to you, you can only make minor changes and mark is as completed. You can log your time <%= link "here", to: task_path(@conn, :show, @task) %></p>
+           <div class="form-group">
+                           <%= submit "Submit", class: "btn btn-primary" %>
+                           </div>
+          <% else %>
+                 <div class="form-group">
+                   <%= label f, :user_id, class: "control-label" %>
+                   <%= select f, :user_id, @users, class: "form-control" %>
+                   <%= error_tag f, :user_id %>
+                 </div>
+               <div class="form-group">
+                 <%= submit "Submit", class: "btn btn-primary" %>
+               </div>
+          <%  end %>
+      <% else %>
+        <%= if Enum.count(@users) == 0 do %>
+            <div class="form-group">
+                <button class="btn btn-primary" disabled>Submit</button>
+            </div>
+            <p>
+              You must have at least one underling before you can add tasks
+              <span><%= link "Add underling", to: manager_path(@conn, :new) %></span>
+            </p>
+        <% else %>
+                 <div class="form-group">
+                   <%= label f, :user_id, class: "control-label" %>
+                   <%= select f, :user_id, @users, class: "form-control" %>
+                   <%= error_tag f, :user_id %>
+                 </div>
+               <div class="form-group">
+                 <%= submit "Submit", class: "btn btn-primary" %>
+               </div>
+        <% end %>
       <% end %>
-
-      <div class="form-group">
-        <%= submit "Submit", class: "btn btn-primary" %>
-      </div>
     </div>
 </div>
 <% end %>

@@ -22,6 +22,20 @@ defmodule Tasktracker.Tasks do
     |> Repo.preload(:user)
   end
 
+  def list_completed_tasks_by_assignee(id) do
+    query = from t in Task, join: u in assoc(t, :user), join: m in assoc(u, :underlings), where: u.id== ^id and t.completed == true
+
+    Repo.all(query)
+    |> Repo.preload(:user)
+  end
+
+  def list_non_completed_tasks_by_assignee(id) do
+    query = from t in Task, join: u in assoc(t, :user), join: m in assoc(u, :underlings), where: u.id== ^id and t.completed == false
+
+    Repo.all(query)
+    |> Repo.preload(:user)
+  end
+
   def list_completed_tasks_by_manager_id(id) do
     query = from t in Task, join: u in assoc(t, :user), join: m in assoc(u, :underlings), where: m.manager_id == ^id and t.completed == true
 
