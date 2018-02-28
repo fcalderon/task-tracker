@@ -8,6 +8,10 @@ defmodule Tasktracker.Tasks do
 
   alias Tasktracker.Tasks.Task
 
+  alias Tasktracker.Managers.Manager
+
+  alias Tasktracker.Accounts.User
+
   @doc """
   Returns the list of tasks.
 
@@ -22,13 +26,31 @@ defmodule Tasktracker.Tasks do
     |> Repo.preload(:user)
   end
 
-  def list_completed_tasks do
-    Repo.all(from t in Task, where: t.completed == true)
+  def list_completed_tasks_by_manager_id(id) do
+    query = from t in Task, join: u in assoc(t, :user), join: m in assoc(u, :underlings), where: m.manager_id == ^id and t.completed == true
+
+    Repo.all(query)
     |> Repo.preload(:user)
   end
 
-  def list_non_completed_tasks do
-    Repo.all(from t in Task, where: t.completed != true)
+  def list_non_completed_tasks_by_manager_id(id) do
+    query = from t in Task, join: u in assoc(t, :user), join: m in assoc(u, :underlings), where: m.manager_id == ^id and t.completed == false
+
+    Repo.all(query)
+    |> Repo.preload(:user)
+  end
+
+  def list_by_user_id(id) do
+    query = from t in Task, join: u in assoc(t, :user), where: u.id == ^id
+
+    Repo.all(query)
+    |> Repo.preload(:user)
+  end
+
+  def list_by_manager_id(id) do
+    query = from t in Task, join: u in assoc(t, :user), join: m in assoc(u, :underlings), where: m.manager_id == ^id
+
+    Repo.all(query)
     |> Repo.preload(:user)
   end
 

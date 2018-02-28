@@ -1,0 +1,24 @@
+<h2>My underlings</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for manager <- @managers do %>
+    <tr>
+      <td><%= manager.underling.name %></td>
+      <td class="text-right">
+        <span><%= link "Show", to: manager_path(@conn, :show, manager), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: manager_path(@conn, :edit, manager), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: manager_path(@conn, :delete, manager), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Underling", to: manager_path(@conn, :new) %></span>

@@ -5,7 +5,8 @@ An Elixir/Phoenix app to track tasks.
 ### Design decisions
 
 * Removed "Users" from navigation. A logged in user should only see or edit its own 
-* Separated completed and non completed tasks, and put non completed above as they should be more relevant to users
+* Separated completed and non completed tasks, and put non completed above as
+  they should be more relevant to users
 
 ### Notes:
 

@@ -4,7 +4,8 @@ defmodule TasktrackerWeb.UserController do
   alias Tasktracker.Accounts
   alias Tasktracker.Accounts.User
   alias TasktrackerWeb.SessionController
-
+  alias Tasktracker.Managers
+  alias Tasktracker.Managers.Manager
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, "index.html", users: users)
@@ -28,7 +29,19 @@ defmodule TasktrackerWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    render(conn, "show.html", user: user)
+    underlings = Managers.list_by_manager_id(id) |> Enum.map(&{&1.underling.name, &1.underling.id})
+
+    manager = Managers.get_by_underling_id(id)
+
+    manager_user = if manager != nil do
+      manager_user = manager.manager
+    else
+      nil
+    end
+
+
+    IO.inspect(manager)
+    render(conn, "show.html", user: user, underlings: underlings, manager: manager_user)
   end
 
   def edit(conn, %{"id" => id}) do

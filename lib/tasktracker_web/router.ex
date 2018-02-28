@@ -20,7 +20,6 @@ defmodule TasktrackerWeb.Router do
     assign(conn, :current_user, user)
   end
 
-
   scope "/", TasktrackerWeb do
     pipe_through :browser # Use the default browser stack
 
@@ -28,6 +27,7 @@ defmodule TasktrackerWeb.Router do
 
     resources "/users", UserController
     resources "/tasks", TaskController
+    resources "/manage", ManagerController
 
     post "/session", SessionController, :create
     delete "/session", SessionController, :delete

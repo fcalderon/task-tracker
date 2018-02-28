@@ -4,16 +4,22 @@ defmodule TasktrackerWeb.TaskController do
   alias Tasktracker.Tasks
   alias Tasktracker.Tasks.Task
   alias Tasktracker.Accounts
+  alias Tasktracker.Managers
 
   def index(conn, _params) do
-    tasks = Tasks.list_non_completed_tasks()
-    completed_tasks = Tasks.list_completed_tasks()
+    user_id = get_session(conn, :user_id)
+
+    tasks = Tasks.list_non_completed_tasks_by_manager_id(user_id)
+    completed_tasks = Tasks.list_completed_tasks_by_manager_id(user_id)
     render(conn, "index.html", tasks: tasks, completed_tasks: completed_tasks)
   end
 
   def new(conn, _params) do
     changeset = Tasks.change_task(%Task{})
-    users = Accounts.list_users() |> Enum.map(&{&1.name, &1.id})
+
+    user_id = get_session(conn, :user_id)
+
+    users = Managers.list_by_manager_id(user_id) |> Enum.map(&{&1.underling.name, &1.underling.id})
 
     render(conn, "new.html", changeset: changeset, users: users, task: nil)
   end

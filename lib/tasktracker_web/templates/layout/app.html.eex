@@ -23,6 +23,11 @@
                     Tasks
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/manage">
+                    Manage
+                  </a>
+                </li>
               </ul>
               <span>
               Logged in as: <%= link @current_user.name, to: user_path(@conn, :show, @current_user) %> |
